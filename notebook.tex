@@ -1,0 +1,1917 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CapsNET-EEG}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} make sure you don\PYZsq{}t hog all the video memory}
+        \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        \PY{n}{config} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{ConfigProto}\PY{p}{(}\PY{p}{)}
+        \PY{n}{config}\PY{o}{.}\PY{n}{gpu\PYZus{}options}\PY{o}{.}\PY{n}{allow\PYZus{}growth} \PY{o}{=} \PY{k+kc}{True}
+        \PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{config}\PY{o}{=}\PY{n}{config}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{backend} \PY{k}{as} \PY{n}{K}
+        \PY{n}{K}\PY{o}{.}\PY{n}{set\PYZus{}session}\PY{p}{(}\PY{n}{sess}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{layers}\PY{p}{,} \PY{n}{models}\PY{p}{,} \PY{n}{optimizers}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{to\PYZus{}categorical}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}} \PY{n}{matplotlib} \PY{n}{inline}
+        \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import} \PY{n}{Image}
+        \PY{k+kn}{from} \PY{n+nn}{capsulelayers} \PY{k}{import} \PY{n}{CapsuleLayer}\PY{p}{,} \PY{n}{PrimaryCap}\PY{p}{,} \PY{n}{Length}\PY{p}{,} \PY{n}{Mask}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{mnist}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{as} \PY{n+nn}{sio}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{k}{def} \PY{n+nf}{group\PYZus{}frequency\PYZus{}bands}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+             \PY{n}{X\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     X\PYZus{}[:,:,:,0] = np.mean(X[:,:,:,3:6],axis=3)}
+         \PY{c+c1}{\PYZsh{}     X\PYZus{}[:,:,:,1] = np.mean(X[:,:,:,7:11],axis=3)}
+         \PY{c+c1}{\PYZsh{}     X\PYZus{}[:,:,:,2] = np.mean(X[:,:,:,12:29],axis=3)}
+             
+         \PY{c+c1}{\PYZsh{}     processing frequencies: 0 16}
+         \PY{c+c1}{\PYZsh{}     processing frequencies: 16 32}
+         \PY{c+c1}{\PYZsh{}     processing frequencies: 32 49}
+         \PY{c+c1}{\PYZsh{}     processing frequencies: 49 65}
+         \PY{c+c1}{\PYZsh{}     X\PYZus{}[:,:,:,0] = np.mean(X[:,:,:,0:16],axis=3)}
+         \PY{c+c1}{\PYZsh{}     X\PYZus{}[:,:,:,1] = np.mean(X[:,:,:,16:32],axis=3)}
+             \PY{n}{X\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{:}\PY{l+m+mi}{49}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+             \PY{n}{X\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{49}\PY{p}{:}\PY{l+m+mi}{65}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+             
+             \PY{n}{X\PYZus{}}\PY{o}{.}\PY{n}{shape}
+             \PY{c+c1}{\PYZsh{} subplot(1,3,1)}
+             \PY{c+c1}{\PYZsh{} imagesc(squeeze(mean(X(1,:,:,4:7), 4)))}
+             \PY{c+c1}{\PYZsh{} title(\PYZsq{}Theta\PYZsq{})}
+         
+             \PY{c+c1}{\PYZsh{} subplot(1,3,2)}
+             \PY{c+c1}{\PYZsh{} imagesc(squeeze(mean(X(1,:,:,8:12), 4)))}
+             \PY{c+c1}{\PYZsh{} title(\PYZsq{}Alpha\PYZsq{})}
+         
+             \PY{c+c1}{\PYZsh{} subplot(1,3,3)}
+             \PY{c+c1}{\PYZsh{} imagesc(squeeze(mean(X(1,:,:,13:30), 4)))}
+             \PY{c+c1}{\PYZsh{} title(\PYZsq{}Beta\PYZsq{})}
+             \PY{k}{return} \PY{n}{X\PYZus{}}
+         
+         \PY{k}{def} \PY{n+nf}{im\PYZus{}resize}\PY{p}{(}\PY{n}{X\PYZus{}}\PY{p}{,} \PY{n}{height}\PY{p}{,} \PY{n}{width}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{if} \PY{n}{width}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{height}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{X\PYZus{}\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{height}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{X\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{im} \PY{o}{=} \PY{n}{Image}\PY{o}{.}\PY{n}{fromarray}\PY{p}{(}\PY{n}{X\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                             \PY{n}{X\PYZus{}\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{im}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{p}{(}\PY{n}{height}\PY{p}{,} \PY{n}{width}\PY{p}{)}\PY{p}{,} \PY{n}{Image}\PY{o}{.}\PY{n}{ANTIALIAS}\PY{p}{)}
+                 \PY{n+nb}{print} \PY{p}{(}\PY{n}{X\PYZus{}\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X\PYZus{}}\PY{p}{[}\PY{l+m+mi}{200}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X\PYZus{}\PYZus{}}\PY{p}{[}\PY{l+m+mi}{200}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IMAGES NOT RESIZED}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{X\PYZus{}\PYZus{}}
+         
+         \PY{k}{def} \PY{n+nf}{downsample\PYZus{}frequency\PYZus{}domain}\PY{p}{(}\PY{n}{n\PYZus{}bins}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Downsampling the frequency domain from}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}bins}\PY{p}{)}
+             \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}bins}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{xx}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}bins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{a} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uint8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}bins}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{xx}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}   
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{processing frequencies:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{xx}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{k}{return} \PY{n}{xx}
+         
+         \PY{k}{def} \PY{n+nf}{parse\PYZus{}array}\PY{p}{(}\PY{n}{in\PYZus{}array}\PY{p}{)}\PY{p}{:}
+             \PY{n}{new\PYZus{}array} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{in\PYZus{}array}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n+nb}{str}\PY{p}{(}\PY{n}{in\PYZus{}array}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{new\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{k}{if} \PY{n+nb}{str}\PY{p}{(}\PY{n}{in\PYZus{}array}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{new\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{k}{if} \PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{in\PYZus{}array}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0} \PY{o+ow}{and} 
+                     \PY{n+nb}{str}\PY{p}{(}\PY{n}{in\PYZus{}array}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                     \PY{n}{new\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unknown}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{new\PYZus{}array}
+         
+         \PY{k}{def} \PY{n+nf}{find\PYZus{}right}\PY{p}{(}\PY{n}{Q}\PY{p}{,} \PY{n}{label}\PY{p}{)}\PY{p}{:}
+             \PY{n}{idx} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Q}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{Q}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{n}{label}\PY{p}{:}
+                     \PY{n}{idx}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{idx}\PY{p}{)}
+         
+         
+         \PY{n}{file} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Merged456\PYZhy{}197\PYZhy{}289\PYZus{}ICA(\PYZhy{}eyes)+AUDpreproc.mat, DS2=64Hz, FIR=1\PYZhy{}30Hz, centnorm=1, step=2, win=2, TOPO, .mat}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}0.78 (CapsNet\PYZus{}EEG)}
+         \PY{c+c1}{\PYZsh{} file = \PYZsq{}Merged456\PYZhy{}197\PYZhy{}289\PYZus{}ICA(\PYZhy{}eyes)+AUDpreproc.mat, DS2=64Hz, FIR=1\PYZhy{}30Hz, centnorm=1, step=1, win=2, TOPO, .mat\PYZsq{} \PYZsh{}2\PYZsh{} \PYZsh{}0.77}
+         \PY{c+c1}{\PYZsh{} file = \PYZsq{}Merged456\PYZhy{}1\PYZhy{}94\PYZus{}ICA(\PYZhy{}2,3ICs)+AUDpreproc.mat, DS2=64Hz, FIR=1\PYZhy{}30Hz, centnorm=1, step=2, win=2, TOPO, .mat\PYZsq{} \PYZsh{}1\PYZsh{} \PYZsh{}0.76 \PYZsh{}0.79}
+         \PY{c+c1}{\PYZsh{} file = \PYZsq{}EEG\PYZus{}ICA(\PYZhy{}123\PYZus{}ICs)+proc\PYZus{}AUD\PYZus{}101\PYZus{}192\PYZus{}Merged456.mat, DS2=64Hz, FIR=1\PYZhy{}30Hz, centnorm=1, step=2, win=2, TOPO, .mat\PYZsq{} \PYZsh{} 0.60 (CapsNet\PYZus{}EEG)}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} file = \PYZsq{}Merged123\PYZus{}1\PYZus{}64\PYZus{}ICA(\PYZhy{}eyes)AUDpreproc.mat, DS2=64Hz, FIR=1\PYZhy{}30Hz, centnorm=1, step=1, win=1, TOPO, .mat\PYZsq{} \PYZsh{} 0.60 CapsNET\PYZus{}EEG}
+         \PY{c+c1}{\PYZsh{} file = \PYZsq{}Merged123\PYZus{}75\PYZus{}134\PYZus{}ICA(\PYZhy{}eyes)AUDpreproc.mat, DS2=64Hz, FIR=1\PYZhy{}30Hz, centnorm=1, step=1, win=2, TOPO, .mat\PYZsq{}}
+         \PY{c+c1}{\PYZsh{} file = \PYZsq{}Merged123\PYZhy{}143\PYZhy{}202\PYZus{}ICA(\PYZhy{}Eyes)+AUDpreproc.mat, DS2=64Hz, FIR=1\PYZhy{}30Hz, centnorm=1, step=1, win=2, TOPO, .mat\PYZsq{} \PYZsh{}0.56}
+         
+         \PY{n}{SHUFFLE} \PY{o}{=} \PY{k+kc}{False}
+         \PY{n}{TEST\PYZus{}TRAIN} \PY{o}{=} \PY{l+m+mf}{0.2}
+         \PY{n}{DS\PYZus{}FREQ} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}(0 1 2)}
+         \PY{n}{n\PYZus{}bins} \PY{o}{=} \PY{l+m+mi}{8}
+         \PY{n}{RESIZE} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mi}{15}
+         \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{15}
+         \PY{n}{SENSITIVITY} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{knockouts} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}
+         
+         \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/amplifier/home/DATASETS/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{file}
+         \PY{n}{mat\PYZus{}contents} \PY{o}{=} \PY{n}{sio}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{mat\PYZus{}contents}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{mat\PYZus{}contents}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} Z = mat\PYZus{}contents[\PYZsq{}Z\PYZsq{}]}
+         \PY{n}{Q} \PY{o}{=} \PY{n}{parse\PYZus{}array}\PY{p}{(}\PY{n}{mat\PYZus{}contents}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{if} \PY{n}{DS\PYZus{}FREQ}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+             \PY{n}{X} \PY{o}{=} \PY{n}{downsample\PYZus{}frequency\PYZus{}domain}\PY{p}{(}\PY{n}{n\PYZus{}bins}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Downsampled Frequency Domain shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{k}{if} \PY{n}{DS\PYZus{}FREQ}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{:}
+             \PY{n}{X} \PY{o}{=} \PY{n}{group\PYZus{}frequency\PYZus{}bands}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grouped Frequency Bands shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{k}{if} \PY{n}{RESIZE}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+             \PY{n}{X} \PY{o}{=} \PY{n}{im\PYZus{}resize}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{height}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Resized shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+         \PY{k}{if} \PY{n}{SENSITIVITY}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+             \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{knockouts}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sens}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{k}{if} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{:}
+             \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{if} \PY{n}{Y}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{Y}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+             \PY{n}{Y} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{T}
+             
+         \PY{c+c1}{\PYZsh{} verify that the model REALLY finds a mapping between the input and the labels. If we get}
+         \PY{c+c1}{\PYZsh{} our accuracy by chance, then we should get the same accuracy on a permuted dataset:}
+         \PY{c+c1}{\PYZsh{} Y = np.random.permutation(Y)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{q\PYZus{}train}\PY{p}{,} \PY{n}{q\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Q}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{n}{TEST\PYZus{}TRAIN}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n}{SHUFFLE}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original data type:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{dtype}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} convert to float64 for numerical stability:}
+         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test.shape before}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} one hot encode the labels:}
+         \PY{n}{onehot\PYZus{}encoder} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{sparse}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{onehot\PYZus{}encoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{onehot\PYZus{}encoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test.shape after}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} convert to float16 to save space:}
+         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normalized data type:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{dtype}\PY{p}{)}
+         
+         \PY{n}{leng} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} if you work in the FD, this is the height of the sample time\PYZhy{}frequency image, othewise EEG channels}
+         \PY{n}{chan} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{c+c1}{\PYZsh{} if you work in the FD, this is the width of the sample time\PYZhy{}frequency image, othewise time samples of EEG signal}
+         
+         \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{3}\PY{p}{:}
+             \PY{n}{streams} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} this is EEG channels if you work with frequency domain, in the TD streams = 1}
+         \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{4}\PY{p}{:}
+             \PY{n}{streams} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{c+c1}{\PYZsh{} this is EEG channels if you work with frequency domain, in the TD streams = 1}
+         
+         \PY{n}{Y} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prepped test input shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Noralized MEAN:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prepped train input shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normalized MEAN:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prepped test labels shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normalized MEAN:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prepped train labels shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normalized MEAN:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}Window length\PYZsq{}, winsize)}
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}Step size:\PYZsq{}, stepsize)}
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}Trial length:\PYZsq{}, trial\PYZus{}len)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EEG in dataset:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Labels in dataset:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{Y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length of textual labels:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{Q}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Downsampling the frequency domain from 65 to 8
+(450, 67, 67, 8)
+[ 0  8 16 24 32 41 49 57 65]
+processing frequencies: 0 8
+processing frequencies: 8 16
+processing frequencies: 16 24
+processing frequencies: 24 32
+processing frequencies: 32 41
+processing frequencies: 41 49
+processing frequencies: 49 57
+processing frequencies: 57 65
+(450, 67, 67, 8)
+Downsampled Frequency Domain shape (450, 67, 67, 8)
+(450, 15, 15, 8)
+Resized shape (450, 15, 15, 8)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Original data type: float64
+y\_test.shape before (90, 1)
+y\_test.shape after (90, 2)
+Normalized data type: float16
+Prepped test input shape (90, 15, 15, 8) Noralized MEAN: 0.09375 min -0.02908 max 1.109
+Prepped train input shape (360, 15, 15, 8) Normalized MEAN: 0.0941 min -0.0571 max 2.4
+Prepped test labels shape (90, 2) Normalized MEAN: 0.5 min 0.0 max 1.0
+Prepped train labels shape (360, 2) Normalized MEAN: 0.5 min 0.0 max 1.0
+EEG in dataset: (450, 15, 15, 8)
+Labels in dataset: (450,)
+Length of textual labels: 450
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_1_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} <matplotlib.image.AxesImage at 0x7fae7a566198>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{input\PYZus{}shape} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{routings} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} was \PYZsq{}valid\PYZsq{} in the original code on github}
+         
+         \PY{n}{n\PYZus{}class} \PY{o}{=} \PY{l+m+mi}{2}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{layers}\PY{o}{.}\PY{n}{Input}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{input\PYZus{}shape}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Layer 1: Just a conventional Conv2D layer}
+         \PY{n}{conv1} \PY{o}{=} \PY{n}{layers}\PY{o}{.}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{256}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{n}{padding}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{conv1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Layer 2: Conv2D layer with `squash` activation, then reshape to [None, num\PYZus{}capsule, dim\PYZus{}capsule]}
+         \PY{n}{primarycaps} \PY{o}{=} \PY{n}{PrimaryCap}\PY{p}{(}\PY{n}{conv1}\PY{p}{,} \PY{n}{dim\PYZus{}capsule}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{n\PYZus{}channels}\PY{o}{=}\PY{l+m+mi}{32}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{n}{padding}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} Layer 3: Capsule layer. Routing algorithm works here.}
+         \PY{n}{digitcaps} \PY{o}{=} \PY{n}{CapsuleLayer}\PY{p}{(}\PY{n}{num\PYZus{}capsule}\PY{o}{=}\PY{n}{n\PYZus{}class}\PY{p}{,} \PY{n}{dim\PYZus{}capsule}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{routings}\PY{o}{=}\PY{n}{routings}\PY{p}{,}
+                                  \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{digitcaps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{primarycaps}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Layer 4: This is an auxiliary layer to replace each capsule with its length. Just to match the true label\PYZsq{}s shape.}
+         \PY{c+c1}{\PYZsh{} If using tensorflow, this will not be necessary. :)}
+         \PY{n}{out\PYZus{}caps} \PY{o}{=} \PY{n}{Length}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capsnet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{digitcaps}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Decoder network.}
+         \PY{n}{y} \PY{o}{=} \PY{n}{layers}\PY{o}{.}\PY{n}{Input}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{n\PYZus{}class}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+         \PY{n}{masked\PYZus{}by\PYZus{}y} \PY{o}{=} \PY{n}{Mask}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{p}{[}\PY{n}{digitcaps}\PY{p}{,} \PY{n}{y}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} The true label is used to mask the output of capsule layer. For training}
+         \PY{n}{masked} \PY{o}{=} \PY{n}{Mask}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{n}{digitcaps}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Mask using the capsule with maximal length. For prediction}
+         
+         \PY{c+c1}{\PYZsh{} Shared Decoder model in training and prediction}
+         \PY{n}{decoder} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{decoder}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{decoder}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{16}\PY{o}{*}\PY{n}{n\PYZus{}class}\PY{p}{)}\PY{p}{)}
+         \PY{n}{decoder}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1024}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{decoder}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{prod}\PY{p}{(}\PY{n}{input\PYZus{}shape}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{decoder}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Reshape}\PY{p}{(}\PY{n}{target\PYZus{}shape}\PY{o}{=}\PY{n}{input\PYZus{}shape}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{out\PYZus{}recon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Models for training and evaluation (prediction)}
+         \PY{n}{train\PYZus{}model} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{Model}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{out\PYZus{}caps}\PY{p}{,} \PY{n}{decoder}\PY{p}{(}\PY{n}{masked\PYZus{}by\PYZus{}y}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{k}{def} \PY{n+nf}{margin\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Margin loss for Eq.(4). When y\PYZus{}true[i, :] contains not just one `1`, this loss should work too. Not test it.}
+         \PY{l+s+sd}{    :param y\PYZus{}true: [None, n\PYZus{}classes]}
+         \PY{l+s+sd}{    :param y\PYZus{}pred: [None, num\PYZus{}capsule]}
+         \PY{l+s+sd}{    :return: a scalar loss value.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{L} \PY{o}{=} \PY{n}{y\PYZus{}true} \PY{o}{*} \PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.9} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PYZbs{}
+                 \PY{l+m+mf}{0.5} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}true}\PY{p}{)} \PY{o}{*} \PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{y\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{L}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} compile the model}
+         \PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{optimizers}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{loss}\PY{o}{=}\PY{p}{[}\PY{n}{margin\PYZus{}loss}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                       \PY{n}{loss\PYZus{}weights}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.392}\PY{p}{]}\PY{p}{,}
+                       \PY{n}{metrics}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capsnet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                    Output Shape         Param \#     Connected to                     
+==================================================================================================
+input\_17 (InputLayer)           (None, 15, 15, 8)    0                                            
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv1 (Conv2D)                  (None, 15, 15, 256)  166144      input\_17[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+primarycap\_conv2d (Conv2D)      (None, 8, 8, 256)    5308672     conv1[0][0]                      
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+primarycap\_reshape (Reshape)    (None, 2048, 8)      0           primarycap\_conv2d[0][0]          
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+primarycap\_squash (Lambda)      (None, 2048, 8)      0           primarycap\_reshape[0][0]         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+digitcaps (CapsuleLayer)        (None, 2, 16)        524288      primarycap\_squash[0][0]          
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+input\_18 (InputLayer)           (None, 2)            0                                            
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+mask\_17 (Mask)                  (None, 32)           0           digitcaps[0][0]                  
+                                                                 input\_18[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+capsnet (Length)                (None, 2)            0           digitcaps[0][0]                  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+decoder (Sequential)            (None, 15, 15, 8)    2387208     mask\_17[0][0]                    
+==================================================================================================
+Total params: 8,386,312
+Trainable params: 8,386,312
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k}{import} \PY{n}{EarlyStopping}\PY{p}{,} \PY{n}{ModelCheckpoint}\PY{p}{,} \PY{n}{CSVLogger}\PY{p}{,} \PY{n}{LearningRateScheduler}\PY{p}{,} \PY{n}{Callback}
+         
+         \PY{n}{EPOCHS} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{init\PYZus{}lr} \PY{o}{=} \PY{l+m+mf}{0.0001}
+         \PY{n}{lr\PYZus{}drop\PYZus{}by} \PY{o}{=} \PY{l+m+mf}{0.995}
+         \PY{n}{drop\PYZus{}every} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{BATCH\PYZus{}SIZE} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{n}{log} \PY{o}{=} \PY{n}{CSVLogger}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/amplifier/home/NEW\PYZus{}DL/logs/CapsNET\PYZus{}log.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{checkpointer} \PY{o}{=} \PY{n}{ModelCheckpoint}\PY{p}{(}\PY{n}{filepath}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/amplifier/home/NEW\PYZus{}DL/weights/CapsNET.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                        \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                                        \PY{n}{monitor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}capsnet\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                        \PY{n}{save\PYZus{}best\PYZus{}only}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{K}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{optimizer}\PY{o}{.}\PY{n}{lr}\PY{p}{,} \PY{n}{init\PYZus{}lr}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{step\PYZus{}decay}\PY{p}{(}\PY{n}{epoch}\PY{p}{,} \PY{n}{init\PYZus{}lr}\PY{o}{=}\PY{n}{init\PYZus{}lr}\PY{p}{,} \PY{n}{lr\PYZus{}drop}\PY{o}{=}\PY{n}{lr\PYZus{}drop\PYZus{}by}\PY{p}{,} \PY{n}{drop\PYZus{}every}\PY{o}{=}\PY{n}{drop\PYZus{}every}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{epoch}\PY{o}{\PYZpc{}}\PY{k}{drop\PYZus{}every}==0:
+                 \PY{n}{lrate} \PY{o}{=} \PY{n}{init\PYZus{}lr} \PY{o}{*} \PY{p}{(}\PY{n}{lr\PYZus{}drop\PYZus{}by} \PY{o}{*}\PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{epoch}\PY{p}{)}\PY{o}{/}\PY{n}{drop\PYZus{}every}\PY{p}{)}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{lrate} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{optimizer}\PY{o}{.}\PY{n}{lr}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CHECK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{epoch}\PY{o}{\PYZpc{}}\PY{k}{drop\PYZus{}every})
+             \PY{k}{return} \PY{n}{lrate}
+         
+         \PY{c+c1}{\PYZsh{} def categorical\PYZus{}accuracy(y\PYZus{}true, y\PYZus{}pred):}
+         \PY{c+c1}{\PYZsh{}     return K.cast(K.equal(K.argmax(y\PYZus{}true, axis=\PYZhy{}1),}
+         \PY{c+c1}{\PYZsh{}                           K.argmax(y\PYZus{}pred, axis=\PYZhy{}1)),}
+         \PY{c+c1}{\PYZsh{}                           K.floatx())}
+         
+         \PY{k}{class} \PY{n+nc}{LossHistory}\PY{p}{(}\PY{n}{Callback}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{on\PYZus{}train\PYZus{}begin}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{logs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{losses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lr} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}loss} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{val\PYZus{}capsnet\PYZus{}acc} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+             \PY{k}{def} \PY{n+nf}{on\PYZus{}epoch\PYZus{}end}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{epoch}\PY{p}{,} \PY{n}{batch}\PY{p}{,} \PY{n}{logs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{lrate} \PY{o}{=} \PY{n}{step\PYZus{}decay}\PY{p}{(}\PY{n}{epoch}\PY{p}{)}
+                 \PY{n}{txt} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{optimizer}\PY{o}{.}\PY{n}{lr}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lr}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{txt}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}         self.lr.append(lrate)}
+         \PY{c+c1}{\PYZsh{}         txt = K.eval(self.model.optimizer.lr)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OPTIMIZERS lrate AT EPOCH END = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{txt}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{on\PYZus{}epoch\PYZus{}begin}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{epoch}\PY{p}{,} \PY{n}{batch}\PY{p}{,} \PY{n}{logs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{txt} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{optimizer}\PY{o}{.}\PY{n}{lr}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OPTIMIZERS lrate AT EPOCH START = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{txt}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{on\PYZus{}batch\PYZus{}end}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{batch}\PY{p}{,} \PY{n}{logs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{logs}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+                 
+         
+         \PY{n}{lr\PYZus{}decay} \PY{o}{=} \PY{n}{LearningRateScheduler}\PY{p}{(}\PY{n}{schedule}\PY{o}{=}\PY{n}{step\PYZus{}decay}\PY{p}{)}
+         \PY{n}{loss\PYZus{}history} \PY{o}{=} \PY{n}{LossHistory}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}history} \PY{o}{=} \PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}
+             \PY{p}{[}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{]}\PY{p}{,}
+             \PY{p}{[}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{]}\PY{p}{,}
+             \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{BATCH\PYZus{}SIZE}\PY{p}{,}
+             \PY{n}{epochs}\PY{o}{=}\PY{n}{EPOCHS}\PY{p}{,}
+             \PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+             \PY{n}{callbacks}\PY{o}{=}\PY{p}{[}\PY{n}{log}\PY{p}{,} \PY{n}{checkpointer}\PY{p}{,} \PY{n}{lr\PYZus{}decay}\PY{p}{,} \PY{n}{loss\PYZus{}history}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train on 360 samples, validate on 90 samples
+Epoch 1/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  1e-04
+360/360 [==============================] - 4s 11ms/step - loss: 0.5068 - capsnet\_loss: 0.4408 - decoder\_loss: 0.1685 - capsnet\_acc: 0.4917 - val\_loss: 0.2962 - val\_capsnet\_loss: 0.2315 - val\_decoder\_loss: 0.1648 - val\_capsnet\_acc: 0.4778
+
+Epoch 00001: val\_capsnet\_acc improved from -inf to 0.47778, saving model to /home/amplifier/home/NEW\_DL/weights/CapsNET.h5
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  1e-04 
+
+
+Epoch 2/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  1e-04
+360/360 [==============================] - 1s 4ms/step - loss: 0.2930 - capsnet\_loss: 0.2330 - decoder\_loss: 0.1531 - capsnet\_acc: 0.5250 - val\_loss: 0.3004 - val\_capsnet\_loss: 0.2490 - val\_decoder\_loss: 0.1311 - val\_capsnet\_acc: 0.5000
+
+Epoch 00002: val\_capsnet\_acc improved from 0.47778 to 0.50000, saving model to /home/amplifier/home/NEW\_DL/weights/CapsNET.h5
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  1e-04 
+
+
+Epoch 3/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  1e-04
+360/360 [==============================] - 1s 4ms/step - loss: 0.2617 - capsnet\_loss: 0.2324 - decoder\_loss: 0.0746 - capsnet\_acc: 0.4833 - val\_loss: 0.2321 - val\_capsnet\_loss: 0.2235 - val\_decoder\_loss: 0.0219 - val\_capsnet\_acc: 0.5000
+
+Epoch 00003: val\_capsnet\_acc did not improve from 0.50000
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  1e-04 
+
+
+Epoch 4/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  1e-04
+360/360 [==============================] - 2s 4ms/step - loss: 0.2229 - capsnet\_loss: 0.2197 - decoder\_loss: 0.0082 - capsnet\_acc: 0.4944 - val\_loss: 0.2177 - val\_capsnet\_loss: 0.2164 - val\_decoder\_loss: 0.0034 - val\_capsnet\_acc: 0.5000
+
+Epoch 00004: val\_capsnet\_acc did not improve from 0.50000
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  1e-04 
+
+
+Epoch 5/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  1e-04
+360/360 [==============================] - 2s 4ms/step - loss: 0.2218 - capsnet\_loss: 0.2207 - decoder\_loss: 0.0028 - capsnet\_acc: 0.4889 - val\_loss: 0.2170 - val\_capsnet\_loss: 0.2162 - val\_decoder\_loss: 0.0020 - val\_capsnet\_acc: 0.5000
+
+Epoch 00005: val\_capsnet\_acc did not improve from 0.50000
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  1e-04 
+
+
+Epoch 6/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  9.95e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2191 - capsnet\_loss: 0.2183 - decoder\_loss: 0.0020 - capsnet\_acc: 0.4972 - val\_loss: 0.2154 - val\_capsnet\_loss: 0.2148 - val\_decoder\_loss: 0.0017 - val\_capsnet\_acc: 0.5000
+
+Epoch 00006: val\_capsnet\_acc did not improve from 0.50000
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  9.95e-05 
+
+
+Epoch 7/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  9.95e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2194 - capsnet\_loss: 0.2186 - decoder\_loss: 0.0019 - capsnet\_acc: 0.5250 - val\_loss: 0.2231 - val\_capsnet\_loss: 0.2225 - val\_decoder\_loss: 0.0017 - val\_capsnet\_acc: 0.5000
+
+Epoch 00007: val\_capsnet\_acc did not improve from 0.50000
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  9.95e-05 
+
+
+Epoch 8/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  9.95e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2200 - capsnet\_loss: 0.2194 - decoder\_loss: 0.0017 - capsnet\_acc: 0.4889 - val\_loss: 0.2158 - val\_capsnet\_loss: 0.2153 - val\_decoder\_loss: 0.0014 - val\_capsnet\_acc: 0.5000
+
+Epoch 00008: val\_capsnet\_acc did not improve from 0.50000
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  9.95e-05 
+
+
+Epoch 9/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  9.95e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2166 - capsnet\_loss: 0.2160 - decoder\_loss: 0.0015 - capsnet\_acc: 0.5028 - val\_loss: 0.2129 - val\_capsnet\_loss: 0.2125 - val\_decoder\_loss: 0.0012 - val\_capsnet\_acc: 0.6889
+
+Epoch 00009: val\_capsnet\_acc improved from 0.50000 to 0.68889, saving model to /home/amplifier/home/NEW\_DL/weights/CapsNET.h5
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  9.95e-05 
+
+
+Epoch 10/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  9.95e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2175 - capsnet\_loss: 0.2169 - decoder\_loss: 0.0014 - capsnet\_acc: 0.5028 - val\_loss: 0.2127 - val\_capsnet\_loss: 0.2122 - val\_decoder\_loss: 0.0011 - val\_capsnet\_acc: 0.6556
+
+Epoch 00010: val\_capsnet\_acc did not improve from 0.68889
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  9.95e-05 
+
+
+Epoch 11/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  9.850749e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2141 - capsnet\_loss: 0.2136 - decoder\_loss: 0.0013 - capsnet\_acc: 0.5389 - val\_loss: 0.2170 - val\_capsnet\_loss: 0.2164 - val\_decoder\_loss: 0.0016 - val\_capsnet\_acc: 0.5000
+
+Epoch 00011: val\_capsnet\_acc did not improve from 0.68889
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  9.850749e-05 
+
+
+Epoch 12/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  9.850749e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2154 - capsnet\_loss: 0.2149 - decoder\_loss: 0.0013 - capsnet\_acc: 0.5444 - val\_loss: 0.2108 - val\_capsnet\_loss: 0.2104 - val\_decoder\_loss: 0.0011 - val\_capsnet\_acc: 0.5000
+
+Epoch 00012: val\_capsnet\_acc did not improve from 0.68889
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  9.850749e-05 
+
+
+Epoch 13/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  9.850749e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2130 - capsnet\_loss: 0.2125 - decoder\_loss: 0.0013 - capsnet\_acc: 0.5444 - val\_loss: 0.2086 - val\_capsnet\_loss: 0.2081 - val\_decoder\_loss: 0.0012 - val\_capsnet\_acc: 0.5000
+
+Epoch 00013: val\_capsnet\_acc did not improve from 0.68889
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  9.850749e-05 
+
+
+Epoch 14/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  9.850749e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2117 - capsnet\_loss: 0.2112 - decoder\_loss: 0.0013 - capsnet\_acc: 0.5528 - val\_loss: 0.2042 - val\_capsnet\_loss: 0.2038 - val\_decoder\_loss: 0.0011 - val\_capsnet\_acc: 0.7889
+
+Epoch 00014: val\_capsnet\_acc improved from 0.68889 to 0.78889, saving model to /home/amplifier/home/NEW\_DL/weights/CapsNET.h5
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  9.850749e-05 
+
+
+Epoch 15/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  9.850749e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.2071 - capsnet\_loss: 0.2066 - decoder\_loss: 0.0012 - capsnet\_acc: 0.5750 - val\_loss: 0.1825 - val\_capsnet\_loss: 0.1821 - val\_decoder\_loss: 0.0010 - val\_capsnet\_acc: 0.7444
+
+Epoch 00015: val\_capsnet\_acc did not improve from 0.78889
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  9.850749e-05 
+
+
+Epoch 16/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  9.703725e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.1982 - capsnet\_loss: 0.1976 - decoder\_loss: 0.0014 - capsnet\_acc: 0.6417 - val\_loss: 0.1641 - val\_capsnet\_loss: 0.1636 - val\_decoder\_loss: 0.0012 - val\_capsnet\_acc: 0.7556
+
+Epoch 00016: val\_capsnet\_acc did not improve from 0.78889
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  9.703725e-05 
+
+
+Epoch 17/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  9.703725e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.1793 - capsnet\_loss: 0.1786 - decoder\_loss: 0.0016 - capsnet\_acc: 0.7167 - val\_loss: 0.1448 - val\_capsnet\_loss: 0.1443 - val\_decoder\_loss: 0.0013 - val\_capsnet\_acc: 0.7667
+
+Epoch 00017: val\_capsnet\_acc did not improve from 0.78889
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  9.703725e-05 
+
+
+Epoch 18/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  9.703725e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.1665 - capsnet\_loss: 0.1659 - decoder\_loss: 0.0017 - capsnet\_acc: 0.7139 - val\_loss: 0.1318 - val\_capsnet\_loss: 0.1311 - val\_decoder\_loss: 0.0016 - val\_capsnet\_acc: 0.7778
+
+Epoch 00018: val\_capsnet\_acc did not improve from 0.78889
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  9.703725e-05 
+
+
+Epoch 19/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  9.703725e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1620 - capsnet\_loss: 0.1612 - decoder\_loss: 0.0018 - capsnet\_acc: 0.7222 - val\_loss: 0.1234 - val\_capsnet\_loss: 0.1227 - val\_decoder\_loss: 0.0018 - val\_capsnet\_acc: 0.8000
+
+Epoch 00019: val\_capsnet\_acc improved from 0.78889 to 0.80000, saving model to /home/amplifier/home/NEW\_DL/weights/CapsNET.h5
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  9.703725e-05 
+
+
+Epoch 20/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  9.703725e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.1495 - capsnet\_loss: 0.1488 - decoder\_loss: 0.0019 - capsnet\_acc: 0.7500 - val\_loss: 0.1688 - val\_capsnet\_loss: 0.1675 - val\_decoder\_loss: 0.0032 - val\_capsnet\_acc: 0.7333
+
+Epoch 00020: val\_capsnet\_acc did not improve from 0.80000
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  9.703725e-05 
+
+
+Epoch 21/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  9.511101e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1483 - capsnet\_loss: 0.1476 - decoder\_loss: 0.0019 - capsnet\_acc: 0.7333 - val\_loss: 0.1269 - val\_capsnet\_loss: 0.1260 - val\_decoder\_loss: 0.0021 - val\_capsnet\_acc: 0.8111
+
+Epoch 00021: val\_capsnet\_acc improved from 0.80000 to 0.81111, saving model to /home/amplifier/home/NEW\_DL/weights/CapsNET.h5
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  9.511101e-05 
+
+
+Epoch 22/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  9.511101e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1579 - capsnet\_loss: 0.1571 - decoder\_loss: 0.0019 - capsnet\_acc: 0.7389 - val\_loss: 0.1428 - val\_capsnet\_loss: 0.1420 - val\_decoder\_loss: 0.0019 - val\_capsnet\_acc: 0.7333
+
+Epoch 00022: val\_capsnet\_acc did not improve from 0.81111
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  9.511101e-05 
+
+
+Epoch 23/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  9.511101e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1445 - capsnet\_loss: 0.1438 - decoder\_loss: 0.0018 - capsnet\_acc: 0.7361 - val\_loss: 0.1314 - val\_capsnet\_loss: 0.1306 - val\_decoder\_loss: 0.0020 - val\_capsnet\_acc: 0.7444
+
+Epoch 00023: val\_capsnet\_acc did not improve from 0.81111
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  9.511101e-05 
+
+
+Epoch 24/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  9.511101e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1446 - capsnet\_loss: 0.1438 - decoder\_loss: 0.0020 - capsnet\_acc: 0.7778 - val\_loss: 0.1285 - val\_capsnet\_loss: 0.1278 - val\_decoder\_loss: 0.0020 - val\_capsnet\_acc: 0.7778
+
+Epoch 00024: val\_capsnet\_acc did not improve from 0.81111
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  9.511101e-05 
+
+
+Epoch 25/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  9.511101e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1365 - capsnet\_loss: 0.1358 - decoder\_loss: 0.0017 - capsnet\_acc: 0.7889 - val\_loss: 0.1851 - val\_capsnet\_loss: 0.1840 - val\_decoder\_loss: 0.0027 - val\_capsnet\_acc: 0.6778
+
+Epoch 00025: val\_capsnet\_acc did not improve from 0.81111
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  9.511101e-05 
+
+
+Epoch 26/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  9.27569e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1384 - capsnet\_loss: 0.1378 - decoder\_loss: 0.0015 - capsnet\_acc: 0.7500 - val\_loss: 0.1511 - val\_capsnet\_loss: 0.1502 - val\_decoder\_loss: 0.0022 - val\_capsnet\_acc: 0.7222
+
+Epoch 00026: val\_capsnet\_acc did not improve from 0.81111
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  9.27569e-05 
+
+
+Epoch 27/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  9.27569e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1304 - capsnet\_loss: 0.1298 - decoder\_loss: 0.0016 - capsnet\_acc: 0.7861 - val\_loss: 0.1410 - val\_capsnet\_loss: 0.1404 - val\_decoder\_loss: 0.0016 - val\_capsnet\_acc: 0.7333
+
+Epoch 00027: val\_capsnet\_acc did not improve from 0.81111
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  9.27569e-05 
+
+
+Epoch 28/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  9.27569e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1331 - capsnet\_loss: 0.1324 - decoder\_loss: 0.0017 - capsnet\_acc: 0.7806 - val\_loss: 0.1336 - val\_capsnet\_loss: 0.1329 - val\_decoder\_loss: 0.0018 - val\_capsnet\_acc: 0.8111
+
+Epoch 00028: val\_capsnet\_acc did not improve from 0.81111
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  9.27569e-05 
+
+
+Epoch 29/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  9.27569e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1259 - capsnet\_loss: 0.1253 - decoder\_loss: 0.0014 - capsnet\_acc: 0.7889 - val\_loss: 0.1423 - val\_capsnet\_loss: 0.1416 - val\_decoder\_loss: 0.0019 - val\_capsnet\_acc: 0.7667
+
+Epoch 00029: val\_capsnet\_acc did not improve from 0.81111
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  9.27569e-05 
+
+
+Epoch 30/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  9.27569e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1269 - capsnet\_loss: 0.1263 - decoder\_loss: 0.0015 - capsnet\_acc: 0.7889 - val\_loss: 0.1385 - val\_capsnet\_loss: 0.1379 - val\_decoder\_loss: 0.0015 - val\_capsnet\_acc: 0.7444
+
+Epoch 00030: val\_capsnet\_acc did not improve from 0.81111
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  9.27569e-05 
+
+
+Epoch 31/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  9.000875e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1234 - capsnet\_loss: 0.1229 - decoder\_loss: 0.0014 - capsnet\_acc: 0.7944 - val\_loss: 0.1351 - val\_capsnet\_loss: 0.1344 - val\_decoder\_loss: 0.0018 - val\_capsnet\_acc: 0.7889
+
+Epoch 00031: val\_capsnet\_acc did not improve from 0.81111
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  9.000875e-05 
+
+
+Epoch 32/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  9.000875e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1283 - capsnet\_loss: 0.1277 - decoder\_loss: 0.0015 - capsnet\_acc: 0.7861 - val\_loss: 0.1701 - val\_capsnet\_loss: 0.1695 - val\_decoder\_loss: 0.0017 - val\_capsnet\_acc: 0.7778
+
+Epoch 00032: val\_capsnet\_acc did not improve from 0.81111
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  9.000875e-05 
+
+
+Epoch 33/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  9.000875e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1273 - capsnet\_loss: 0.1267 - decoder\_loss: 0.0015 - capsnet\_acc: 0.8028 - val\_loss: 0.1346 - val\_capsnet\_loss: 0.1340 - val\_decoder\_loss: 0.0015 - val\_capsnet\_acc: 0.7889
+
+Epoch 00033: val\_capsnet\_acc did not improve from 0.81111
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  9.000875e-05 
+
+
+Epoch 34/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  9.000875e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1201 - capsnet\_loss: 0.1195 - decoder\_loss: 0.0014 - capsnet\_acc: 0.8056 - val\_loss: 0.1279 - val\_capsnet\_loss: 0.1274 - val\_decoder\_loss: 0.0014 - val\_capsnet\_acc: 0.8000
+
+Epoch 00034: val\_capsnet\_acc did not improve from 0.81111
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  9.000875e-05 
+
+
+Epoch 35/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  9.000875e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1230 - capsnet\_loss: 0.1225 - decoder\_loss: 0.0014 - capsnet\_acc: 0.7861 - val\_loss: 0.1455 - val\_capsnet\_loss: 0.1449 - val\_decoder\_loss: 0.0017 - val\_capsnet\_acc: 0.8111
+
+Epoch 00035: val\_capsnet\_acc did not improve from 0.81111
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  9.000875e-05 
+
+
+Epoch 36/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  8.6905304e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1159 - capsnet\_loss: 0.1153 - decoder\_loss: 0.0013 - capsnet\_acc: 0.8222 - val\_loss: 0.1758 - val\_capsnet\_loss: 0.1751 - val\_decoder\_loss: 0.0018 - val\_capsnet\_acc: 0.7111
+
+Epoch 00036: val\_capsnet\_acc did not improve from 0.81111
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  8.6905304e-05 
+
+
+Epoch 37/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  8.6905304e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1287 - capsnet\_loss: 0.1281 - decoder\_loss: 0.0013 - capsnet\_acc: 0.7722 - val\_loss: 0.1274 - val\_capsnet\_loss: 0.1269 - val\_decoder\_loss: 0.0015 - val\_capsnet\_acc: 0.8333
+
+Epoch 00037: val\_capsnet\_acc improved from 0.81111 to 0.83333, saving model to /home/amplifier/home/NEW\_DL/weights/CapsNET.h5
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  8.6905304e-05 
+
+
+Epoch 38/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  8.6905304e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1164 - capsnet\_loss: 0.1159 - decoder\_loss: 0.0013 - capsnet\_acc: 0.8056 - val\_loss: 0.1441 - val\_capsnet\_loss: 0.1436 - val\_decoder\_loss: 0.0014 - val\_capsnet\_acc: 0.8000
+
+Epoch 00038: val\_capsnet\_acc did not improve from 0.83333
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  8.6905304e-05 
+
+
+Epoch 39/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  8.6905304e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1131 - capsnet\_loss: 0.1126 - decoder\_loss: 0.0012 - capsnet\_acc: 0.8167 - val\_loss: 0.1345 - val\_capsnet\_loss: 0.1340 - val\_decoder\_loss: 0.0014 - val\_capsnet\_acc: 0.8222
+
+Epoch 00039: val\_capsnet\_acc did not improve from 0.83333
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  8.6905304e-05 
+
+
+Epoch 40/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  8.6905304e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1102 - capsnet\_loss: 0.1097 - decoder\_loss: 0.0012 - capsnet\_acc: 0.8222 - val\_loss: 0.1439 - val\_capsnet\_loss: 0.1433 - val\_decoder\_loss: 0.0014 - val\_capsnet\_acc: 0.8111
+
+Epoch 00040: val\_capsnet\_acc did not improve from 0.83333
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  8.6905304e-05 
+
+
+Epoch 41/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  8.348932e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1137 - capsnet\_loss: 0.1132 - decoder\_loss: 0.0012 - capsnet\_acc: 0.8250 - val\_loss: 0.1429 - val\_capsnet\_loss: 0.1424 - val\_decoder\_loss: 0.0013 - val\_capsnet\_acc: 0.8222
+
+Epoch 00041: val\_capsnet\_acc did not improve from 0.83333
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  8.348932e-05 
+
+
+Epoch 42/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  8.348932e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1057 - capsnet\_loss: 0.1052 - decoder\_loss: 0.0012 - capsnet\_acc: 0.8306 - val\_loss: 0.1393 - val\_capsnet\_loss: 0.1388 - val\_decoder\_loss: 0.0014 - val\_capsnet\_acc: 0.8222
+
+Epoch 00042: val\_capsnet\_acc did not improve from 0.83333
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  8.348932e-05 
+
+
+Epoch 43/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  8.348932e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.1037 - capsnet\_loss: 0.1032 - decoder\_loss: 0.0012 - capsnet\_acc: 0.8333 - val\_loss: 0.1534 - val\_capsnet\_loss: 0.1530 - val\_decoder\_loss: 0.0012 - val\_capsnet\_acc: 0.7444
+
+Epoch 00043: val\_capsnet\_acc did not improve from 0.83333
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  8.348932e-05 
+
+
+Epoch 44/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  8.348932e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1020 - capsnet\_loss: 0.1016 - decoder\_loss: 0.0011 - capsnet\_acc: 0.8333 - val\_loss: 0.1748 - val\_capsnet\_loss: 0.1743 - val\_decoder\_loss: 0.0013 - val\_capsnet\_acc: 0.7111
+
+Epoch 00044: val\_capsnet\_acc did not improve from 0.83333
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  8.348932e-05 
+
+
+Epoch 45/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  8.348932e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1021 - capsnet\_loss: 0.1017 - decoder\_loss: 0.0011 - capsnet\_acc: 0.8306 - val\_loss: 0.1527 - val\_capsnet\_loss: 0.1522 - val\_decoder\_loss: 0.0012 - val\_capsnet\_acc: 0.8222
+
+Epoch 00045: val\_capsnet\_acc did not improve from 0.83333
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  8.348932e-05 
+
+
+Epoch 46/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  7.9806574e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1036 - capsnet\_loss: 0.1031 - decoder\_loss: 0.0011 - capsnet\_acc: 0.8444 - val\_loss: 0.1386 - val\_capsnet\_loss: 0.1381 - val\_decoder\_loss: 0.0011 - val\_capsnet\_acc: 0.8444
+
+Epoch 00046: val\_capsnet\_acc improved from 0.83333 to 0.84444, saving model to /home/amplifier/home/NEW\_DL/weights/CapsNET.h5
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  7.9806574e-05 
+
+
+Epoch 47/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  7.9806574e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0984 - capsnet\_loss: 0.0980 - decoder\_loss: 0.0011 - capsnet\_acc: 0.8444 - val\_loss: 0.1571 - val\_capsnet\_loss: 0.1567 - val\_decoder\_loss: 0.0011 - val\_capsnet\_acc: 0.7667
+
+Epoch 00047: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  7.9806574e-05 
+
+
+Epoch 48/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  7.9806574e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.0961 - capsnet\_loss: 0.0957 - decoder\_loss: 0.0011 - capsnet\_acc: 0.8500 - val\_loss: 0.1528 - val\_capsnet\_loss: 0.1524 - val\_decoder\_loss: 0.0010 - val\_capsnet\_acc: 0.7889
+
+Epoch 00048: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  7.9806574e-05 
+
+
+Epoch 49/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  7.9806574e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.1010 - capsnet\_loss: 0.1006 - decoder\_loss: 0.0011 - capsnet\_acc: 0.8361 - val\_loss: 0.1469 - val\_capsnet\_loss: 0.1464 - val\_decoder\_loss: 0.0011 - val\_capsnet\_acc: 0.8111
+
+Epoch 00049: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  7.9806574e-05 
+
+
+Epoch 50/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  7.9806574e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.0953 - capsnet\_loss: 0.0949 - decoder\_loss: 0.0010 - capsnet\_acc: 0.8472 - val\_loss: 0.1535 - val\_capsnet\_loss: 0.1531 - val\_decoder\_loss: 0.0011 - val\_capsnet\_acc: 0.7778
+
+Epoch 00050: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  7.9806574e-05 
+
+
+Epoch 51/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  7.590484e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.0932 - capsnet\_loss: 0.0928 - decoder\_loss: 0.0010 - capsnet\_acc: 0.8667 - val\_loss: 0.1447 - val\_capsnet\_loss: 0.1443 - val\_decoder\_loss: 0.0010 - val\_capsnet\_acc: 0.8222
+
+Epoch 00051: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  7.590484e-05 
+
+
+Epoch 52/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  7.590484e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0951 - capsnet\_loss: 0.0947 - decoder\_loss: 0.0010 - capsnet\_acc: 0.8694 - val\_loss: 0.1366 - val\_capsnet\_loss: 0.1362 - val\_decoder\_loss: 0.0010 - val\_capsnet\_acc: 0.8222
+
+Epoch 00052: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  7.590484e-05 
+
+
+Epoch 53/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  7.590484e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0938 - capsnet\_loss: 0.0933 - decoder\_loss: 0.0010 - capsnet\_acc: 0.8528 - val\_loss: 0.1624 - val\_capsnet\_loss: 0.1620 - val\_decoder\_loss: 9.5655e-04 - val\_capsnet\_acc: 0.8000
+
+Epoch 00053: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  7.590484e-05 
+
+
+Epoch 54/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  7.590484e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0890 - capsnet\_loss: 0.0886 - decoder\_loss: 0.0010 - capsnet\_acc: 0.8694 - val\_loss: 0.1846 - val\_capsnet\_loss: 0.1843 - val\_decoder\_loss: 0.0010 - val\_capsnet\_acc: 0.7111
+
+Epoch 00054: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  7.590484e-05 
+
+
+Epoch 55/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  7.590484e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.0954 - capsnet\_loss: 0.0950 - decoder\_loss: 0.0010 - capsnet\_acc: 0.8333 - val\_loss: 0.1703 - val\_capsnet\_loss: 0.1699 - val\_decoder\_loss: 0.0010 - val\_capsnet\_acc: 0.7222
+
+Epoch 00055: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  7.590484e-05 
+
+
+Epoch 56/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  7.1832896e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0902 - capsnet\_loss: 0.0898 - decoder\_loss: 0.0010 - capsnet\_acc: 0.8639 - val\_loss: 0.1364 - val\_capsnet\_loss: 0.1360 - val\_decoder\_loss: 9.6969e-04 - val\_capsnet\_acc: 0.8222
+
+Epoch 00056: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  7.1832896e-05 
+
+
+Epoch 57/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  7.1832896e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0892 - capsnet\_loss: 0.0888 - decoder\_loss: 9.9739e-04 - capsnet\_acc: 0.8667 - val\_loss: 0.1464 - val\_capsnet\_loss: 0.1460 - val\_decoder\_loss: 9.4400e-04 - val\_capsnet\_acc: 0.8111
+
+Epoch 00057: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  7.1832896e-05 
+
+
+Epoch 58/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  7.1832896e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0861 - capsnet\_loss: 0.0857 - decoder\_loss: 9.8653e-04 - capsnet\_acc: 0.8722 - val\_loss: 0.1546 - val\_capsnet\_loss: 0.1543 - val\_decoder\_loss: 9.3766e-04 - val\_capsnet\_acc: 0.8111
+
+Epoch 00058: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  7.1832896e-05 
+
+
+Epoch 59/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  7.1832896e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0801 - capsnet\_loss: 0.0797 - decoder\_loss: 9.8233e-04 - capsnet\_acc: 0.8833 - val\_loss: 0.1480 - val\_capsnet\_loss: 0.1477 - val\_decoder\_loss: 9.1958e-04 - val\_capsnet\_acc: 0.8222
+
+Epoch 00059: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  7.1832896e-05 
+
+
+Epoch 60/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  7.1832896e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0843 - capsnet\_loss: 0.0839 - decoder\_loss: 9.8812e-04 - capsnet\_acc: 0.8778 - val\_loss: 0.1455 - val\_capsnet\_loss: 0.1452 - val\_decoder\_loss: 9.0898e-04 - val\_capsnet\_acc: 0.8000
+
+Epoch 00060: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  7.1832896e-05 
+
+
+Epoch 61/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  6.763949e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0823 - capsnet\_loss: 0.0819 - decoder\_loss: 9.9039e-04 - capsnet\_acc: 0.8750 - val\_loss: 0.1595 - val\_capsnet\_loss: 0.1591 - val\_decoder\_loss: 9.6034e-04 - val\_capsnet\_acc: 0.7778
+
+Epoch 00061: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  6.763949e-05 
+
+
+Epoch 62/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  6.763949e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0809 - capsnet\_loss: 0.0805 - decoder\_loss: 9.7233e-04 - capsnet\_acc: 0.8833 - val\_loss: 0.1795 - val\_capsnet\_loss: 0.1791 - val\_decoder\_loss: 8.8971e-04 - val\_capsnet\_acc: 0.7111
+
+Epoch 00062: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  6.763949e-05 
+
+
+Epoch 63/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  6.763949e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0825 - capsnet\_loss: 0.0821 - decoder\_loss: 9.6262e-04 - capsnet\_acc: 0.8861 - val\_loss: 0.1749 - val\_capsnet\_loss: 0.1746 - val\_decoder\_loss: 8.7408e-04 - val\_capsnet\_acc: 0.7222
+
+Epoch 00063: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  6.763949e-05 
+
+
+Epoch 64/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  6.763949e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0814 - capsnet\_loss: 0.0810 - decoder\_loss: 9.6132e-04 - capsnet\_acc: 0.8694 - val\_loss: 0.1420 - val\_capsnet\_loss: 0.1416 - val\_decoder\_loss: 9.1474e-04 - val\_capsnet\_acc: 0.8000
+
+Epoch 00064: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  6.763949e-05 
+
+
+Epoch 65/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  6.763949e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0765 - capsnet\_loss: 0.0761 - decoder\_loss: 9.5896e-04 - capsnet\_acc: 0.8944 - val\_loss: 0.1421 - val\_capsnet\_loss: 0.1417 - val\_decoder\_loss: 8.7045e-04 - val\_capsnet\_acc: 0.8222
+
+Epoch 00065: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  6.763949e-05 
+
+
+Epoch 66/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  6.3372434e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0750 - capsnet\_loss: 0.0746 - decoder\_loss: 9.5263e-04 - capsnet\_acc: 0.9028 - val\_loss: 0.1724 - val\_capsnet\_loss: 0.1720 - val\_decoder\_loss: 8.7530e-04 - val\_capsnet\_acc: 0.7333
+
+Epoch 00066: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  6.3372434e-05 
+
+
+Epoch 67/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  6.3372434e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0722 - capsnet\_loss: 0.0718 - decoder\_loss: 9.5152e-04 - capsnet\_acc: 0.9028 - val\_loss: 0.1477 - val\_capsnet\_loss: 0.1473 - val\_decoder\_loss: 8.6611e-04 - val\_capsnet\_acc: 0.8111
+
+Epoch 00067: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  6.3372434e-05 
+
+
+Epoch 68/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  6.3372434e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0716 - capsnet\_loss: 0.0712 - decoder\_loss: 9.5216e-04 - capsnet\_acc: 0.9056 - val\_loss: 0.1674 - val\_capsnet\_loss: 0.1671 - val\_decoder\_loss: 8.6738e-04 - val\_capsnet\_acc: 0.7556
+
+Epoch 00068: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  6.3372434e-05 
+
+
+Epoch 69/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  6.3372434e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0736 - capsnet\_loss: 0.0732 - decoder\_loss: 9.5029e-04 - capsnet\_acc: 0.9000 - val\_loss: 0.1779 - val\_capsnet\_loss: 0.1775 - val\_decoder\_loss: 8.6707e-04 - val\_capsnet\_acc: 0.7000
+
+Epoch 00069: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  6.3372434e-05 
+
+
+Epoch 70/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  6.3372434e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0734 - capsnet\_loss: 0.0731 - decoder\_loss: 9.4529e-04 - capsnet\_acc: 0.9028 - val\_loss: 0.1662 - val\_capsnet\_loss: 0.1659 - val\_decoder\_loss: 8.5605e-04 - val\_capsnet\_acc: 0.7556
+
+Epoch 00070: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  6.3372434e-05 
+
+
+Epoch 71/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  5.907769e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0653 - capsnet\_loss: 0.0650 - decoder\_loss: 9.4852e-04 - capsnet\_acc: 0.9278 - val\_loss: 0.1457 - val\_capsnet\_loss: 0.1454 - val\_decoder\_loss: 8.5946e-04 - val\_capsnet\_acc: 0.8000
+
+Epoch 00071: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  5.907769e-05 
+
+
+Epoch 72/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  5.907769e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0686 - capsnet\_loss: 0.0682 - decoder\_loss: 9.4271e-04 - capsnet\_acc: 0.9000 - val\_loss: 0.1523 - val\_capsnet\_loss: 0.1519 - val\_decoder\_loss: 8.4795e-04 - val\_capsnet\_acc: 0.8222
+
+Epoch 00072: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  5.907769e-05 
+
+
+Epoch 73/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  5.907769e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0648 - capsnet\_loss: 0.0644 - decoder\_loss: 9.4262e-04 - capsnet\_acc: 0.9222 - val\_loss: 0.1608 - val\_capsnet\_loss: 0.1605 - val\_decoder\_loss: 8.5613e-04 - val\_capsnet\_acc: 0.8111
+
+Epoch 00073: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  5.907769e-05 
+
+
+Epoch 74/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  5.907769e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0629 - capsnet\_loss: 0.0625 - decoder\_loss: 9.4713e-04 - capsnet\_acc: 0.9250 - val\_loss: 0.1626 - val\_capsnet\_loss: 0.1623 - val\_decoder\_loss: 8.6469e-04 - val\_capsnet\_acc: 0.7556
+
+Epoch 00074: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  5.907769e-05 
+
+
+Epoch 75/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  5.907769e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0632 - capsnet\_loss: 0.0628 - decoder\_loss: 9.5458e-04 - capsnet\_acc: 0.9250 - val\_loss: 0.1522 - val\_capsnet\_loss: 0.1519 - val\_decoder\_loss: 8.5327e-04 - val\_capsnet\_acc: 0.8000
+
+Epoch 00075: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  5.907769e-05 
+
+
+Epoch 76/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  5.479863e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0622 - capsnet\_loss: 0.0618 - decoder\_loss: 9.4187e-04 - capsnet\_acc: 0.9361 - val\_loss: 0.1725 - val\_capsnet\_loss: 0.1722 - val\_decoder\_loss: 8.5920e-04 - val\_capsnet\_acc: 0.7333
+
+Epoch 00076: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  5.479863e-05 
+
+
+Epoch 77/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  5.479863e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0608 - capsnet\_loss: 0.0605 - decoder\_loss: 9.3636e-04 - capsnet\_acc: 0.9222 - val\_loss: 0.1721 - val\_capsnet\_loss: 0.1718 - val\_decoder\_loss: 8.5074e-04 - val\_capsnet\_acc: 0.7333
+
+Epoch 00077: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  5.479863e-05 
+
+
+Epoch 78/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  5.479863e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0591 - capsnet\_loss: 0.0588 - decoder\_loss: 9.3926e-04 - capsnet\_acc: 0.9278 - val\_loss: 0.1619 - val\_capsnet\_loss: 0.1615 - val\_decoder\_loss: 8.6403e-04 - val\_capsnet\_acc: 0.7889
+
+Epoch 00078: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  5.479863e-05 
+
+
+Epoch 79/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  5.479863e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0625 - capsnet\_loss: 0.0621 - decoder\_loss: 9.3590e-04 - capsnet\_acc: 0.9333 - val\_loss: 0.1579 - val\_capsnet\_loss: 0.1576 - val\_decoder\_loss: 8.4341e-04 - val\_capsnet\_acc: 0.7778
+
+Epoch 00079: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  5.479863e-05 
+
+
+Epoch 80/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  5.479863e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0609 - capsnet\_loss: 0.0606 - decoder\_loss: 9.3479e-04 - capsnet\_acc: 0.9389 - val\_loss: 0.1761 - val\_capsnet\_loss: 0.1758 - val\_decoder\_loss: 8.3892e-04 - val\_capsnet\_acc: 0.7444
+
+Epoch 00080: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  5.479863e-05 
+
+
+Epoch 81/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  5.0575363e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0594 - capsnet\_loss: 0.0590 - decoder\_loss: 9.3377e-04 - capsnet\_acc: 0.9222 - val\_loss: 0.1726 - val\_capsnet\_loss: 0.1722 - val\_decoder\_loss: 8.4733e-04 - val\_capsnet\_acc: 0.7222
+
+Epoch 00081: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  5.0575363e-05 
+
+
+Epoch 82/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  5.0575363e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0604 - capsnet\_loss: 0.0600 - decoder\_loss: 9.3492e-04 - capsnet\_acc: 0.9333 - val\_loss: 0.1656 - val\_capsnet\_loss: 0.1653 - val\_decoder\_loss: 8.4608e-04 - val\_capsnet\_acc: 0.7778
+
+Epoch 00082: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  5.0575363e-05 
+
+
+Epoch 83/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  5.0575363e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0562 - capsnet\_loss: 0.0558 - decoder\_loss: 9.3057e-04 - capsnet\_acc: 0.9389 - val\_loss: 0.1540 - val\_capsnet\_loss: 0.1537 - val\_decoder\_loss: 8.4810e-04 - val\_capsnet\_acc: 0.8000
+
+Epoch 00083: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  5.0575363e-05 
+
+
+Epoch 84/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  5.0575363e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0517 - capsnet\_loss: 0.0514 - decoder\_loss: 9.3040e-04 - capsnet\_acc: 0.9528 - val\_loss: 0.1728 - val\_capsnet\_loss: 0.1725 - val\_decoder\_loss: 8.4988e-04 - val\_capsnet\_acc: 0.7333
+
+Epoch 00084: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  5.0575363e-05 
+
+
+Epoch 85/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  5.0575363e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0509 - capsnet\_loss: 0.0505 - decoder\_loss: 9.3103e-04 - capsnet\_acc: 0.9389 - val\_loss: 0.1421 - val\_capsnet\_loss: 0.1417 - val\_decoder\_loss: 8.5327e-04 - val\_capsnet\_acc: 0.8000
+
+Epoch 00085: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  5.0575363e-05 
+
+
+Epoch 86/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  4.6444187e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0503 - capsnet\_loss: 0.0500 - decoder\_loss: 9.3214e-04 - capsnet\_acc: 0.9500 - val\_loss: 0.1650 - val\_capsnet\_loss: 0.1647 - val\_decoder\_loss: 8.4866e-04 - val\_capsnet\_acc: 0.7556
+
+Epoch 00086: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  4.6444187e-05 
+
+
+Epoch 87/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  4.6444187e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0501 - capsnet\_loss: 0.0498 - decoder\_loss: 9.2881e-04 - capsnet\_acc: 0.9444 - val\_loss: 0.1470 - val\_capsnet\_loss: 0.1467 - val\_decoder\_loss: 8.5184e-04 - val\_capsnet\_acc: 0.7889
+
+Epoch 00087: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  4.6444187e-05 
+
+
+Epoch 88/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  4.6444187e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0504 - capsnet\_loss: 0.0500 - decoder\_loss: 9.2941e-04 - capsnet\_acc: 0.9472 - val\_loss: 0.1600 - val\_capsnet\_loss: 0.1596 - val\_decoder\_loss: 8.5015e-04 - val\_capsnet\_acc: 0.7444
+
+Epoch 00088: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  4.6444187e-05 
+
+
+Epoch 89/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  4.6444187e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0480 - capsnet\_loss: 0.0476 - decoder\_loss: 9.3235e-04 - capsnet\_acc: 0.9444 - val\_loss: 0.1578 - val\_capsnet\_loss: 0.1575 - val\_decoder\_loss: 8.4831e-04 - val\_capsnet\_acc: 0.7667
+
+Epoch 00089: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  4.6444187e-05 
+
+
+Epoch 90/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  4.6444187e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0467 - capsnet\_loss: 0.0463 - decoder\_loss: 9.2902e-04 - capsnet\_acc: 0.9556 - val\_loss: 0.1522 - val\_capsnet\_loss: 0.1518 - val\_decoder\_loss: 8.4625e-04 - val\_capsnet\_acc: 0.7556
+
+Epoch 00090: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  4.6444187e-05 
+
+
+Epoch 91/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  4.243721e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.0488 - capsnet\_loss: 0.0484 - decoder\_loss: 9.3121e-04 - capsnet\_acc: 0.9556 - val\_loss: 0.1807 - val\_capsnet\_loss: 0.1804 - val\_decoder\_loss: 8.4436e-04 - val\_capsnet\_acc: 0.7444
+
+Epoch 00091: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  4.243721e-05 
+
+
+Epoch 92/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  4.243721e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0443 - capsnet\_loss: 0.0440 - decoder\_loss: 9.2670e-04 - capsnet\_acc: 0.9583 - val\_loss: 0.1638 - val\_capsnet\_loss: 0.1635 - val\_decoder\_loss: 8.4489e-04 - val\_capsnet\_acc: 0.7556
+
+Epoch 00092: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  4.243721e-05 
+
+
+Epoch 93/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  4.243721e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0441 - capsnet\_loss: 0.0437 - decoder\_loss: 9.2615e-04 - capsnet\_acc: 0.9694 - val\_loss: 0.1655 - val\_capsnet\_loss: 0.1652 - val\_decoder\_loss: 8.4233e-04 - val\_capsnet\_acc: 0.7444
+
+Epoch 00093: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  4.243721e-05 
+
+
+Epoch 94/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  4.243721e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0448 - capsnet\_loss: 0.0445 - decoder\_loss: 9.2711e-04 - capsnet\_acc: 0.9500 - val\_loss: 0.1679 - val\_capsnet\_loss: 0.1676 - val\_decoder\_loss: 8.4663e-04 - val\_capsnet\_acc: 0.7333
+
+Epoch 00094: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  4.243721e-05 
+
+
+Epoch 95/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  4.243721e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0422 - capsnet\_loss: 0.0418 - decoder\_loss: 9.2592e-04 - capsnet\_acc: 0.9556 - val\_loss: 0.1637 - val\_capsnet\_loss: 0.1633 - val\_decoder\_loss: 8.4358e-04 - val\_capsnet\_acc: 0.7556
+
+Epoch 00095: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  4.243721e-05 
+
+
+Epoch 96/100
+CHECK 0
+OPTIMIZERS lrate AT EPOCH START =  3.8582053e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0405 - capsnet\_loss: 0.0402 - decoder\_loss: 9.2705e-04 - capsnet\_acc: 0.9694 - val\_loss: 0.1606 - val\_capsnet\_loss: 0.1603 - val\_decoder\_loss: 8.4024e-04 - val\_capsnet\_acc: 0.7444
+
+Epoch 00096: val\_capsnet\_acc did not improve from 0.84444
+CHECK 0
+OPTIMIZERS lrate AT EPOCH END =  3.8582053e-05 
+
+
+Epoch 97/100
+CHECK 1
+OPTIMIZERS lrate AT EPOCH START =  3.8582053e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0392 - capsnet\_loss: 0.0389 - decoder\_loss: 9.2386e-04 - capsnet\_acc: 0.9667 - val\_loss: 0.1538 - val\_capsnet\_loss: 0.1534 - val\_decoder\_loss: 8.4813e-04 - val\_capsnet\_acc: 0.7778
+
+Epoch 00097: val\_capsnet\_acc did not improve from 0.84444
+CHECK 1
+OPTIMIZERS lrate AT EPOCH END =  3.8582053e-05 
+
+
+Epoch 98/100
+CHECK 2
+OPTIMIZERS lrate AT EPOCH START =  3.8582053e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0411 - capsnet\_loss: 0.0408 - decoder\_loss: 9.2483e-04 - capsnet\_acc: 0.9583 - val\_loss: 0.1626 - val\_capsnet\_loss: 0.1623 - val\_decoder\_loss: 8.4070e-04 - val\_capsnet\_acc: 0.7667
+
+Epoch 00098: val\_capsnet\_acc did not improve from 0.84444
+CHECK 2
+OPTIMIZERS lrate AT EPOCH END =  3.8582053e-05 
+
+
+Epoch 99/100
+CHECK 3
+OPTIMIZERS lrate AT EPOCH START =  3.8582053e-05
+360/360 [==============================] - 1s 4ms/step - loss: 0.0389 - capsnet\_loss: 0.0386 - decoder\_loss: 9.2438e-04 - capsnet\_acc: 0.9694 - val\_loss: 0.1537 - val\_capsnet\_loss: 0.1533 - val\_decoder\_loss: 8.4417e-04 - val\_capsnet\_acc: 0.7667
+
+Epoch 00099: val\_capsnet\_acc did not improve from 0.84444
+CHECK 3
+OPTIMIZERS lrate AT EPOCH END =  3.8582053e-05 
+
+
+Epoch 100/100
+CHECK 4
+OPTIMIZERS lrate AT EPOCH START =  3.8582053e-05
+360/360 [==============================] - 2s 4ms/step - loss: 0.0375 - capsnet\_loss: 0.0372 - decoder\_loss: 9.2320e-04 - capsnet\_acc: 0.9722 - val\_loss: 0.1622 - val\_capsnet\_loss: 0.1619 - val\_decoder\_loss: 8.5450e-04 - val\_capsnet\_acc: 0.7556
+
+Epoch 00100: val\_capsnet\_acc did not improve from 0.84444
+CHECK 4
+OPTIMIZERS lrate AT EPOCH END =  3.8582053e-05 
+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{f}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{131}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{loss\PYZus{}history}\PY{o}{.}\PY{n}{batch\PYZus{}loss}\PY{p}{)}
+         \PY{n}{tic} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{loss\PYZus{}history}\PY{o}{.}\PY{n}{batch\PYZus{}loss}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}capsnet\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tic}\PY{p}{,} \PY{n}{train\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capsnet\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tic}\PY{p}{,} \PY{n}{train\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}capsnet\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss dynamics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capsnet\PYZus{}loss (by batch)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capsnet\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}capsnet\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{132}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{loss\PYZus{}history}\PY{o}{.}\PY{n}{lr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Learning rate dynamics over epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lrate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{133}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}capsnet\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capsnet\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy dynamics over epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{sample} \PY{o}{=} \PY{l+m+mi}{77}
+         \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{x\PYZus{}recon} \PY{o}{=} \PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{[}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{n}{sample}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{n}{sample}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{f}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{x\PYZus{}recon}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reconstruction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{f}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{9}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ground Truth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k}{def} \PY{n+nf}{hardmax}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             \PY{n}{out} \PY{o}{=} \PY{n}{out}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+             \PY{n}{idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{out}\PY{p}{[}\PY{n}{idx}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{out}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} load best weights:}
+         \PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{load\PYZus{}weights}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/amplifier/home/NEW\PYZus{}DL/weights/CapsNET.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} ANOTHER TEST OF ACCURACY:}
+         
+         \PY{n}{en} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         \PY{c+c1}{\PYZsh{} this is to generate some random 0\PYZhy{}1/1\PYZhy{}0 pairs (the model wants a second input which can be anything)}
+         \PY{n}{dummy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{o}{*}\PY{n}{y\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{en}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dummy}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{dummy}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{hardmax}\PY{p}{(}\PY{n}{dummy}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}  
+         
+         \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{train\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{[}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{en}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{dummy}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{suc\PYZus{}res} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{hardmax}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{hardmax}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{result} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{success}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{n}{suc\PYZus{}res}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{result} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FAIL}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{n}{suc\PYZus{}res}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{result}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{suc\PYZus{}res}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 [0.8375541  0.46528706] [0. 1.] FAIL
+1 [0.64429796 0.6704802 ] [0. 1.] success
+2 [0.03453759 0.86645985] [0. 1.] success
+3 [0.5646328  0.76608527] [0. 1.] success
+4 [0.85586506 0.22557998] [0. 1.] FAIL
+5 [0.03864182 0.8886014 ] [0. 1.] success
+6 [0.12182061 0.9036379 ] [0. 1.] success
+7 [0.7845403  0.26346463] [0. 1.] FAIL
+8 [0.5479014 0.7409945] [0. 1.] success
+9 [0.11422563 0.8842593 ] [0. 1.] success
+10 [0.159214  0.8461634] [0. 1.] success
+11 [0.7796377 0.5700255] [0. 1.] FAIL
+12 [0.51171905 0.8179741 ] [0. 1.] success
+13 [0.683745  0.7231286] [0. 1.] success
+14 [0.06385982 0.889363  ] [0. 1.] success
+15 [0.7832736 0.5384878] [1. 0.] success
+16 [0.30013993 0.8232999 ] [1. 0.] FAIL
+17 [0.7386734  0.50000757] [1. 0.] success
+18 [0.41629222 0.7144713 ] [1. 0.] FAIL
+19 [0.7159021 0.6800345] [1. 0.] success
+20 [0.5136861 0.8365976] [1. 0.] FAIL
+21 [0.7031086  0.23644862] [1. 0.] success
+22 [0.89690745 0.08438434] [1. 0.] success
+23 [0.8067328 0.5690605] [1. 0.] success
+24 [0.79695225 0.6065327 ] [1. 0.] success
+25 [0.6585532 0.6117144] [1. 0.] success
+26 [0.75236106 0.63179153] [1. 0.] success
+27 [0.46683824 0.8042878 ] [1. 0.] FAIL
+28 [0.13906914 0.8829193 ] [1. 0.] FAIL
+29 [0.83996534 0.25759533] [1. 0.] success
+30 [0.8047647  0.37685868] [0. 1.] FAIL
+31 [0.2808409 0.8198657] [0. 1.] success
+32 [0.2600416 0.909056 ] [0. 1.] success
+33 [0.5668736 0.7128988] [0. 1.] success
+34 [0.76410574 0.3320021 ] [0. 1.] FAIL
+35 [0.24758767 0.84749407] [0. 1.] success
+36 [0.13108057 0.8917605 ] [0. 1.] success
+37 [0.29175577 0.84733737] [0. 1.] success
+38 [0.42312667 0.79209334] [0. 1.] success
+39 [0.62928575 0.7374047 ] [0. 1.] success
+40 [0.4877847 0.9191348] [0. 1.] success
+41 [0.44864905 0.9288115 ] [0. 1.] success
+42 [0.26405573 0.9095722 ] [0. 1.] success
+43 [0.84160113 0.2335124 ] [0. 1.] FAIL
+44 [0.19400726 0.8978278 ] [0. 1.] success
+45 [0.78808457 0.19995444] [1. 0.] success
+46 [0.6922222  0.58489966] [1. 0.] success
+47 [0.6703397 0.5086089] [1. 0.] success
+48 [0.90489477 0.2084358 ] [1. 0.] success
+49 [0.36226225 0.7397286 ] [1. 0.] FAIL
+50 [0.8284258  0.03095324] [1. 0.] success
+51 [0.8808377  0.06232127] [1. 0.] success
+52 [0.59658056 0.46197796] [1. 0.] success
+53 [0.87268734 0.04222534] [1. 0.] success
+54 [0.800945   0.51895744] [1. 0.] success
+55 [0.9017949  0.11820717] [1. 0.] success
+56 [0.74887043 0.37512577] [1. 0.] success
+57 [0.8454344  0.00465016] [1. 0.] success
+58 [0.78390193 0.28542522] [1. 0.] success
+59 [0.7532117  0.50440836] [1. 0.] success
+60 [0.04597785 0.914669  ] [0. 1.] success
+61 [0.57401896 0.8166399 ] [0. 1.] success
+62 [0.02257992 0.8990257 ] [0. 1.] success
+63 [0.02356347 0.8961913 ] [0. 1.] success
+64 [0.22963306 0.9221445 ] [0. 1.] success
+65 [0.660133  0.9473679] [0. 1.] success
+66 [0.16079639 0.9219025 ] [0. 1.] success
+67 [0.05806941 0.8756869 ] [0. 1.] success
+68 [0.05486495 0.9137212 ] [0. 1.] success
+69 [0.18667395 0.9120762 ] [0. 1.] success
+70 [0.6843836  0.93832725] [0. 1.] success
+71 [0.40021703 0.88110566] [0. 1.] success
+72 [0.32898125 0.8574644 ] [0. 1.] success
+73 [0.1849953 0.9084763] [0. 1.] success
+74 [0.41796306 0.94009155] [0. 1.] success
+75 [0.69086784 0.6801348 ] [1. 0.] success
+76 [0.49822134 0.77558696] [1. 0.] FAIL
+77 [0.6319524  0.41756517] [1. 0.] success
+78 [0.76260346 0.62745506] [1. 0.] success
+79 [0.8684269  0.06249512] [1. 0.] success
+80 [0.7423658 0.4929899] [1. 0.] success
+81 [0.7801474  0.40999085] [1. 0.] success
+82 [0.7943767  0.30324975] [1. 0.] success
+83 [0.78587776 0.3639155 ] [1. 0.] success
+84 [0.7963958  0.30246785] [1. 0.] success
+85 [0.653459  0.5241686] [1. 0.] success
+86 [0.89166605 0.09536617] [1. 0.] success
+87 [0.90250784 0.22520767] [1. 0.] success
+88 [0.80463046 0.31693062] [1. 0.] success
+0.8426966292134831
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
